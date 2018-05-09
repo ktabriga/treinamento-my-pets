@@ -1,5 +1,6 @@
 import React from 'react'
-import {TouchableOpacity, View, FlatList, Text, Image, StyleSheet} from 'react-native'
+import {View, Image, StyleSheet} from 'react-native'
+import Input from '../../Components/Input'
 import PetList from './PetList'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -16,7 +17,8 @@ export default class PetListScreen extends React.Component {
   })
 
   state = {
-    pets: []
+    pets: [],
+    search: ''
   }
 
   handleEdit = pet => {
@@ -39,11 +41,21 @@ export default class PetListScreen extends React.Component {
     })
   }
 
+  handleSearch = search => {
+    this.setState({ search })
+  }
+
   render() {
     return (
-      <PetList 
-        onPress={this.handleEdit}
-        pets={this.state.pets}/>
+      <View>
+        <Input 
+          onChangeText={this.handleSearch}
+          style={styles.search}
+          placeholder='Buscar'/>
+        <PetList 
+          onPress={this.handleEdit}
+          pets={this.state.pets.filter(p => p.name.includes(this.state.search))}/>
+      </View>
     )
   }
 }
@@ -51,5 +63,8 @@ export default class PetListScreen extends React.Component {
 const styles = StyleSheet.create({
   add: {
     marginRight: 10
+  },
+  search: {
+    margin: 15
   }
 })

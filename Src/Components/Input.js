@@ -8,6 +8,7 @@ export default class Input extends React.Component {
     return (
       <TextInput 
         onChangeText={this.props.onChangeText}
+        placeholder={this.props.placeholder}
         value={this.props.value}
         underlineColorAndroid='transparent'
         style={[styles.input, this.props.style]} />
